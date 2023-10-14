@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+        <h3> Xəbərlər</h3>
+        <hr>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+            <form >
+                {% csrf_token %}
+                <input type="text" name="keyword" class=" input-sm" maxlenght="64" placeholder="Axtar" />
+              <button type="submit" class="btn btn-danger">Axtar</button>
+              </form>
+
+        </div>
+    </div>
+</div>
+
+{% if articles %}
+{% for article in articles %}
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+    <div class="col-lg-8">
+        <!-- Post content-->
+        <article>
+                       
+                <!-- Post title-->
+               <a href="{% url 'article:detail' article.id %}"><h2 class="mt-4">{{article.title}}</h2> </a>
+               
+                <!-- Post meta content-->
+
+                <p class="lead">
+                    {{article.author.username}} adlı istifadəçi tərəfindən yazılmışdır
+                </p>
+                <div class="text-muted fst-italic mb-2"><p>Yazılma tarixi:{{article.created_date}}</p></div>
+            
+            
+            <!-- Preview image figure-->
+            {% if article.article_image %}
+            <a href="/articles/article/{{article.id}}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt="..." ></a>
+            
+            {% endif %}
+            
+            <!-- Post content-->
+            <section class="mb-5">
+               <p class="lead">
+                    {{article.content|safe|truncatewords:30}}
+               </p>
+                <a style="float:right;" href="/articles/article/{{article.id}}" class="btn btn-danger">Davamını oxu</a>
+               <hr>
+            </section>
+        </article>
+        
+             </div>
+        </div>
+    
+    </div>
+
+{% endfor %}
+
+
+{% else %}
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+<div class="alert alert-danger">
+    Təklif tapılmadı
+</div>
+</div>
+</div>
+
+{% endif %}
+{% endblock body %}

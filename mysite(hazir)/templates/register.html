@@ -1,0 +1,50 @@
+<style>
+  .header-container {
+    align-items: center;
+  }
+  .signup-form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: linear-gradient(
+      to right,
+      rgba(0, 180, 0, 0.8),
+      rgba(0, 85, 0, 0.8)
+    );
+  }
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .submit-btn {
+    width: 100%;
+  }
+</style>
+
+{% extends "layout.html" %} {% block body %} {% load crispy_forms_tags %}
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <form method="post">
+      <div class="signup-form">
+        <div class="header-container">
+          <h3>Qeydiyyatdan keç</h3>
+          <hr />
+        </div>
+        {% csrf_token %} {{form.as_p}}
+
+        <button type="submit" class="btn btn-dark submit-btn">Qeydiyyat</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock body %}
